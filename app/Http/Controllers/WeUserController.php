@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\WeUser;
+use Illuminate\Support\Facades\Hash;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Auth;
 
@@ -24,6 +25,9 @@ class WeUserController extends Controller
                 'name' => $request->name,
                 'email' => $request->email,
                 'password' => bcrypt($request->password),
+                'open_id' => Hash::make($request->email),
+                'nickname' => $request->name,
+                'avatar' => 'https://i0.wp.com/wp.laravel-news.com/wp-content/uploads/2017/06/performant-laravel.jpg?resize=1400%2C709',
             ]);
         }
         $credentials=[

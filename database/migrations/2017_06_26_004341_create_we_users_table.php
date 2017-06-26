@@ -18,6 +18,9 @@ class CreateWeUsersTable extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
+            $table->string('open_id');
+            $table->string('nickname');
+            $table->string('avatar');
             $table->rememberToken();
             $table->timestamps();
         });
