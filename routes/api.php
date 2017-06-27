@@ -19,3 +19,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 
 Route::post('/login','WeUserController@login');
+Route::post('/wx-info','WeUserController@getWxUserInfo');
