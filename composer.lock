@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "0f0b2938e4590ccfc53b9f21c6d306fe",
+    "content-hash": "ade7c34c27e345da15934d429ec922ce",
     "packages": [
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -147,6 +147,43 @@
                 "parser"
             ],
             "time": "2017-03-29T16:04:15+00:00"
+        },
+        {
+            "name": "iwanli/wxxcx",
+            "version": "v2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/lanceWan/wxxcx.git",
+                "reference": "c6a1c4a62ac5028f99245fa5bcb4d6a8fbddc655"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://files.phpcomposer.com/files/lanceWan/wxxcx/c6a1c4a62ac5028f99245fa5bcb4d6a8fbddc655.zip",
+                "reference": "c6a1c4a62ac5028f99245fa5bcb4d6a8fbddc655",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "~5",
+                "php": ">=5.5.9"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Iwanli\\Wxxcx\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "晚黎",
+                    "email": "ibanya@126.com"
+                }
+            ],
+            "description": "A WeChat applet (xiaochengxu) plugins for Laravel 5.",
+            "time": "2017-06-08T03:13:33+00:00"
         },
         {
             "name": "jakub-onderka/php-console-color",

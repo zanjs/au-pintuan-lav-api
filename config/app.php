@@ -168,6 +168,7 @@ return [
          */
         Laravel\Tinker\TinkerServiceProvider::class,
         Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
+        Iwanli\Wxxcx\WxxcxServiceProvider::class,
         /*
          * Application Service Providers...
          */
