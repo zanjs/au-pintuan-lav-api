@@ -16,7 +16,7 @@ class CreateGroupsTable extends Migration
         Schema::create('groups', function (Blueprint $table) {
             $table->increments('id');
             $table->text('description')->notNull()->comment('拼团描述');
-            $table->string('type')->notNull()->comment('拼团类型');
+            $table->string('type_id')->notNull()->comment('拼团类型');
             $table->string('currency_id',50)->notNull()->comment('货币类型ID');
             $table->string('head_id',50)->notNull()->comment('团长ID');
             $table->integer('open')->default(1)->comment('接龙状态 1 为接龙中 2 已截止');
