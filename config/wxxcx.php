@@ -4,11 +4,11 @@ return [
 	/**
 	 * 小程序APPID
 	 */
-    'appid' => 'your AppID',
+    'appid' => env('WX_APP_ID'),
     /**
      * 小程序Secret
      */
-    'secret' => 'your AppSecret',
+    'secret' => env('WX_SECRET'),
     /**
      * 小程序登录凭证 code 获取 session_key 和 openid 地址，不需要改动
      */

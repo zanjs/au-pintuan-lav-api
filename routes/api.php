@@ -17,6 +17,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::middleware('auth:api')->post('/group', 'GroupController@store');
 
-Route::post('/login','WeUserController@login');
+
+Route::post('/wx/login','WeUserController@login');
+Route::post('/wx/login/test','WeUserController@getWxUserInfo');
 Route::post('/wx-info','WeUserController@getWxUserInfo');
