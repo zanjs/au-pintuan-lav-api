@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Group;
 
 class GroupController extends Controller
 {
@@ -35,8 +36,21 @@ class GroupController extends Controller
     public function store(Request $request)
     {
         $description = request('description', '');
+        $type_id = request('type_id', 1);
         $user = $request->user();
-        return response()->json(compact('description','user'));
+        $head_id = $user->id;
+        $alias = $user->nickname;
+        $avatar = $user->avatar;
+
+        Group::create([
+            'type_id' => $type_id,
+            'description' => $description,
+            'head_id' => $head_id,
+            'alias' => $alias,
+            'avatar' => $avatar,
+        ]);
+
+        return response()->json(compact('description','type_id','user'));
 
     }
 
