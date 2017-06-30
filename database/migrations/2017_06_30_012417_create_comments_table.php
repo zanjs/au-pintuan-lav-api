@@ -15,6 +15,7 @@ class CreateCommentsTable extends Migration
     {
         Schema::create('comments', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('index')->notNull()->comment('索引');
             $table->string('group_id')->notNull()->comment('所属团');
             $table->string('user_id')->notNull()->comment('用户id');
             $table->string('alias')->default(null)->comment('花名');

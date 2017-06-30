@@ -13,6 +13,18 @@ class Group extends Model
         'avatar',
         'currency_id',
         'head_id',
+        'image',
         'alias'
     ];
+
+
+    public function getImageJsonAttribute($value)
+    {
+        return json_decode($value);
+    }
+
+    public function setImageJsonAttribute($value)
+    {
+        $this->attributes['image'] = json_encode($value);
+    }
 }

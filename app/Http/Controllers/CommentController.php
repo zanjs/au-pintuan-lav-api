@@ -57,8 +57,11 @@ class CommentController extends Controller
             return response()->json(compact('comment','message'));
         }
 
+        $count = Comment::where('group_id',$group_id)->count();
+
         $comment = new Comment;
 
+        $comment->index = $count+1;
         $comment->group_id = $group_id;
         $comment->comment = $commentInfo;
         $comment->user_id = $user_id;

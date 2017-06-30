@@ -17,6 +17,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::middleware('auth:api')->get('/group', 'GroupController@index');
 Route::middleware('auth:api')->post('/group', 'GroupController@store');
 
 Route::middleware('auth:api')->get('/group/{id}', 'GroupController@show');
@@ -25,6 +26,8 @@ Route::middleware('auth:api')->get('/group/{id}', 'GroupController@show');
 Route::middleware('auth:api')->post('/comment', 'CommentController@store');
 
 Route::middleware('auth:api')->get('/comment/{id}', 'CommentController@show');
+
+Route::middleware('auth:api')->post('/image/upload', 'ImageController@uploadImages');
 
 Route::post('/wx/login','WeUserController@login');
 Route::post('/wx/login/test','WeUserController@getWxUserInfo');

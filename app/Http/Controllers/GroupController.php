@@ -13,9 +13,13 @@ class GroupController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $user = $request->user();
+
+        $group = Group::where('head_id', $user->id)->get();
+
+        return response()->json(compact('group'));
     }
 
     /**
@@ -38,6 +42,7 @@ class GroupController extends Controller
     {
         $description = request('description', '');
         $type_id = request('type_id', 1);
+        $image = request('image', '');
         $user = $request->user();
         $head_id = $user->id;
         $alias = $user->nickname;
@@ -49,6 +54,7 @@ class GroupController extends Controller
             'head_id' => $head_id,
             'alias' => $alias,
             'avatar' => $avatar,
+            'image' => $image
         ]);
 
         return response()->json(compact('description','type_id','user','group'));
@@ -64,6 +70,8 @@ class GroupController extends Controller
     public function show($id,Request $request)
     {
         $group = Group::find($id);
+
+//        $group->image = json_decode($group->image);
 
         $user = $request->user();
 
