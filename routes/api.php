@@ -19,6 +19,12 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::middleware('auth:api')->post('/group', 'GroupController@store');
 
+Route::middleware('auth:api')->get('/group/{id}', 'GroupController@show');
+
+// comment
+Route::middleware('auth:api')->post('/comment', 'CommentController@store');
+
+Route::middleware('auth:api')->get('/comment/{id}', 'CommentController@show');
 
 Route::post('/wx/login','WeUserController@login');
 Route::post('/wx/login/test','WeUserController@getWxUserInfo');

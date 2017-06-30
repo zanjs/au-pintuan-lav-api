@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Group;
+use App\Comment;
 
 class GroupController extends Controller
 {
@@ -42,7 +43,7 @@ class GroupController extends Controller
         $alias = $user->nickname;
         $avatar = $user->avatar;
 
-        Group::create([
+       $group = Group::create([
             'type_id' => $type_id,
             'description' => $description,
             'head_id' => $head_id,
@@ -50,7 +51,7 @@ class GroupController extends Controller
             'avatar' => $avatar,
         ]);
 
-        return response()->json(compact('description','type_id','user'));
+        return response()->json(compact('description','type_id','user','group'));
 
     }
 
@@ -60,9 +61,15 @@ class GroupController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id,Request $request)
     {
-        //
+        $group = Group::find($id);
+
+        $user = $request->user();
+
+        $comment = Comment::where(['group_id'=>$id,'user_id'=>$user->id])->first();
+
+        return response()->json(compact('group','user','comment'));
     }
 
     /**
