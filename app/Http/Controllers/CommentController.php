@@ -12,9 +12,13 @@ class CommentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $user = $request->user();
+
+        $comments = Comment::where('user_id', $user->id)->with('group')->get();
+
+        return response()->json(compact('comments'));
     }
 
     /**

@@ -25,6 +25,7 @@ Route::middleware('auth:api')->get('/group/{id}', 'GroupController@show');
 Route::middleware('auth:api')->post('/group/open/{id}', 'GroupController@updateOpen');
 
 // comment
+Route::middleware('auth:api')->get('/comment', 'CommentController@index');
 Route::middleware('auth:api')->post('/comment', 'CommentController@store');
 
 Route::middleware('auth:api')->get('/comment/{id}', 'CommentController@show');
