@@ -95,10 +95,10 @@ class ImageController extends Controller
 
         // 第一个参数代表目录, 第二个参数代表我上方自己定义的一个存储媒介
         $time = date('Y-m-d');
-        $path_a = $file->store('uploads/group/'.$time, 'local');
+        $path_a = $file->store('uploads/group/'.$time, 'uploads');
 
-        $path = "/".$path_a;
-        $src = env('APP_URL')."/".$path_a;
+        $path = "/storage/".$path_a;
+        $src = env('APP_URL')."/storage/".$path_a;
 
         return response()->json(compact('path','src'));
     }

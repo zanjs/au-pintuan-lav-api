@@ -83,7 +83,7 @@ class CommentController extends Controller
      */
     public function show($id)
     {
-        $comments = Comment::where('group_id',$id)->get();
+        $comments = Comment::where('group_id',$id)->orderBy('created_at','desc')->get();
 
         return response()->json(compact('comments'));
     }
