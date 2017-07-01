@@ -91,6 +91,26 @@ class GroupController extends Controller
         //
     }
 
+    public function updateOpen(Request $request, $id){
+
+        $group = Group::find($id);
+
+        if(!$group){
+            return response()->json(['error','no']);
+        }
+
+        $user = $request->user();
+
+        $open = $request->open;
+
+        $group->open = $open;
+
+        $group->save();
+
+        return response()->json(compact('group'));
+
+    }
+
     /**
      * Update the specified resource in storage.
      *
