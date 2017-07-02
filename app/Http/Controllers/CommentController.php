@@ -16,7 +16,7 @@ class CommentController extends Controller
     {
         $user = $request->user();
 
-        $comments = Comment::where('user_id', $user->id)->with('group')->get();
+        $comments = Comment::where('user_id', $user->id)->orderBy('created_at','desc')->with('group')->get();
 
         return response()->json(compact('comments'));
     }

@@ -17,7 +17,7 @@ class GroupController extends Controller
     {
         $user = $request->user();
 
-        $group = Group::where('head_id', $user->id)->get();
+        $group = Group::where('head_id', $user->id)->orderBy('created_at','desc')->get();
 
         return response()->json(compact('group'));
     }
@@ -88,7 +88,9 @@ class GroupController extends Controller
      */
     public function edit($id)
     {
-        //
+        $group = Group::find($id);
+
+        return response()->json(compact('group'));
     }
 
     public function updateOpen(Request $request, $id){
@@ -120,7 +122,23 @@ class GroupController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $group = Group::query()->find($id);
+
+        if(!$group){
+            return response()->json(['error','no']);
+        }
+
+        $group->description = request('description', '');
+        $group->type_id = request('type_id', 1);
+        $group->image = request('image', '');
+        $user = $request->user();
+        $group->head_id = $user->id;
+        $group->alias = $user->nickname;
+        $group->avatar = $user->avatar;
+
+        $group->save();
+
+        return response()->json(compact('description','type_id','user','group'));
     }
 
     /**
@@ -129,8 +147,35 @@ class GroupController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        //
+        $group = Group::find($id);
+
+        if(!$group){
+            return response()->json(['error'=>'no']);
+        }
+
+        $user = $request->user();
+
+        if($user->id != $group->head_id){
+            return response()->json(['error'=>'no']);
+        }
+
+        $count = Comment::query()->where('group_id', $group->id)->count();
+
+        if($count != 0){
+            return response()->json(['error'=>'no','message'=>'已经有人报名了, 不可以删除哦','count'=>$count ]);
+        }
+
+        $images = $group->image;
+
+        if($images){
+
+
+        }
+
+        $group->delete();
+
+        return response()->json(['message'=>'ok']);
     }
 }

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Group;
+use Illuminate\Support\Facades\Storage;
 
 class ImageController extends Controller
 {
@@ -77,9 +79,46 @@ class ImageController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        //
+        $group = Group::find($id);
+        $index = $request->index;
+
+        $imageStr = $group->image;
+
+        if(!$imageStr){
+            return response()->json(['error'=>'no']);
+        }
+
+        $images = explode(",", $imageStr);
+
+        $image_file = $images[$index];
+
+        $isdel = Storage::disk('uploads')->delete($image_file);
+
+        return response()->json(['data'=>$images,'file'=>$image_file,'message' => $isdel]);
+
+    }
+
+    public function del(Request $request, $id)
+    {
+        $group = Group::find($id);
+        $index = $request->index;
+
+        $imageStr = $group->image;
+
+        if(!$imageStr){
+            return response()->json(['error'=>'no']);
+        }
+
+        $images = explode(",", $imageStr);
+
+        $image_file = $images[$index];
+
+        $isdel = Storage::disk('uploads')->delete($image_file);
+
+        return response()->json(['data'=>$isdel,'file'=>$image_file]);
+
     }
 
     /**
@@ -97,7 +136,7 @@ class ImageController extends Controller
         $time = date('Y-m-d');
         $path_a = $file->store('uploads/group/'.$time, 'uploads');
 
-        $path = "/storage/".$path_a;
+        $path = $path_a;
         $src = env('APP_URL')."/storage/".$path_a;
 
         return response()->json(compact('path','src'));
