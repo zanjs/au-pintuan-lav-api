@@ -131,12 +131,13 @@ class ImageController extends Controller
             return response()->json(['error'=>'what']);
         }
 
+        $user = $request->user();
+
         // 第一个参数代表目录, 第二个参数代表我上方自己定义的一个存储媒介
         $time = date('Y-m-d');
-        $path_a = $file->store("uploads/group/".$time, 'uploads');
+        $path = $file->store("uploads/group/".$user->id."/".$time, 'uploads');
 
-        $path = $path_a;
-        $src = env('APP_URL')."/storage/".$path_a;
+        $src = env('APP_URL')."/storage/".$path;
 
         return response()->json(compact('path','src'));
     }
