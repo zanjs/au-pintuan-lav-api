@@ -30,6 +30,7 @@ Route::middleware('auth:api')->post('/group/del/{id}', 'GroupController@destroy'
 // comment
 Route::middleware('auth:api')->get('/comment', 'CommentController@index');
 Route::middleware('auth:api')->post('/comment', 'CommentController@store');
+Route::middleware('auth:api')->post('/comment/del/{id}', 'CommentController@destroy');
 
 Route::middleware('auth:api')->get('/comment/{id}', 'CommentController@show');
 
@@ -41,3 +42,8 @@ Route::middleware('auth:api')->post('/image/del/{id}', 'ImageController@destroy'
 Route::post('/wx/login','WeUserController@login');
 Route::post('/wx/login/test','WeUserController@getWxUserInfo');
 Route::post('/wx-info','WeUserController@getWxUserInfo');
+
+
+Route::get('/code/{id}','CodeController@getCode');
+
+Route::get('/baidu','CodeController@baidu');

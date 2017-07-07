@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Comment;
+use App\Group;
 use Illuminate\Http\Request;
 
 class CommentController extends Controller
@@ -121,8 +122,30 @@ class CommentController extends Controller
      * @param  \App\Comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Comment $comment)
+    public function destroy($id, Request $request)
     {
-        //
+        $comment_id = $id;
+
+        if(!$comment_id){
+            return response()->json(['error','no']);
+        }
+
+        $comment = Comment::query()->find($comment_id);
+
+        if(!$comment){
+            return response()->json(['error','no']);
+        }
+        $group_id = $comment->group_id;
+
+        $group = Group::query()->find($group_id);
+        $user = $request->user();
+
+        if($group->head_id != $user->id){
+            return response()->json(['error','no']);
+        }
+
+        $comment->delete();
+        return response()->json(['message'=>'ok']);
+
     }
 }
