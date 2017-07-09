@@ -16,6 +16,7 @@ class CreateOrdersTable extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->increments('id');
             $table->string('group_id')->notNull()->comment('所属团');
+            $table->string('user_id')->notNull()->comment('用户id');
             $table->string('alias')->default(null)->comment('花名');
             $table->string('avatar')->default(null)->comment('头像');
             $table->string('comment')->default(null)->comment('备注说明');
@@ -23,6 +24,8 @@ class CreateOrdersTable extends Migration
             $table->text('products_desc')->default(null)->comment('产品订单描述');
             $table->string('phone')->default(null)->comment('联系电话');
             $table->string('address')->default(null)->comment('联系地址');
+            $table->string('location_address')->nullable()->default(null)->comment('定位地址');
+
             $table->timestamps();
         });
     }

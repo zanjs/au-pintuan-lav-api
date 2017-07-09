@@ -18,7 +18,7 @@ class CreateProductsTable extends Migration
             $table->string('group_id',50)->notNull()->comment('所属团编号');
             $table->string('name',100)->default(null)->comment('商品名称');
             $table->decimal('price',12,2)->default(0.00)->comment('商品价格');
-            $table->integer('quantity')->default(null)->comment('商品数量');
+            $table->integer('quantity')->nullable()->default(null)->comment('商品数量');
             $table->timestamps();
         });
     }

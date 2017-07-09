@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Group;
 use App\Comment;
+use Illuminate\Support\Facades\DB;
 
 class GroupController extends Controller
 {
@@ -48,7 +49,11 @@ class GroupController extends Controller
         $alias = $user->nickname;
         $avatar = $user->avatar;
 
-       $group = Group::create([
+
+
+       $products = $request->products;
+
+        $group = Group::create([
             'type_id' => $type_id,
             'description' => $description,
             'head_id' => $head_id,
@@ -57,7 +62,24 @@ class GroupController extends Controller
             'image' => $image
         ]);
 
-        return response()->json(compact('description','type_id','user','group'));
+       if(!$products){
+
+           return response()->json(compact('description','type_id','user','group'));
+       }
+
+        $group_id = $group->id;
+
+        $arr = array();
+
+        foreach ($products as $product) {
+            $product["group_id"] = $group_id;
+            $product["created_at"] = date("Y-m-d H:i:s");
+            array_push($arr,$product);
+        }
+
+        $insert = DB::table('products')->insert($arr);
+
+        return response()->json(compact('insert','arr','group_id','products','description','type_id','user','group'));
 
     }
 
