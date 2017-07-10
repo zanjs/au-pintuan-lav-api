@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Product;
 
 class ProductController extends Controller
 {
@@ -45,7 +46,9 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        //
+        $products = Product::query()->where('group_id',$id)->get();
+
+        return response()->json(compact('products'));
     }
 
     /**
