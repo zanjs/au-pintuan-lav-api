@@ -36,6 +36,8 @@ Route::middleware('auth:api')->get('/comment/{id}', 'CommentController@show');
 
 Route::middleware('auth:api')->get('/group/product/{id}', 'ProductController@show');
 
+Route::middleware('auth:api')->get('/group/product/order/{id}', 'ProductOrderController@show');
+
 Route::middleware('auth:api')->post('/image/upload', 'ImageController@uploadImages');
 
 Route::get('/image/del/{id}', 'ImageController@del');

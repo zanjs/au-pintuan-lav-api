@@ -47,6 +47,8 @@ class CommentController extends Controller
         $avatar = $user->avatar;
         $group_id = $request->group_id;
         $commentInfo = $request->comment;
+        $productommentInfo = $request->product_comment;
+        $products = $request->products;
 
         $comment = Comment::where(['group_id'=>$group_id,'user_id'=>$user_id])->first();
 
@@ -54,12 +56,13 @@ class CommentController extends Controller
         if($comment){
 
             $comment->comment = $commentInfo;
+            $comment->product_comment = $productommentInfo;
 
             $comment->save();
 
             $message = "更新成功";
 
-            return response()->json(compact('comment','message'));
+            return response()->json(compact('productommentInfo','products','comment','message'));
         }
 
         $count = Comment::where('group_id',$group_id)->count();
@@ -69,6 +72,7 @@ class CommentController extends Controller
         $comment->index = $count+1;
         $comment->group_id = $group_id;
         $comment->comment = $commentInfo;
+        $comment->product_comment = $productommentInfo;
         $comment->user_id = $user_id;
         $comment->alias = $alias;
         $comment->avatar = $avatar;
@@ -77,7 +81,7 @@ class CommentController extends Controller
 
         $message = "发布成功";
 
-        return response()->json(compact('comment','message'));
+        return response()->json(compact('products','comment','message'));
     }
 
     /**
