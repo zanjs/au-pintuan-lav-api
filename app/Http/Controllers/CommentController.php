@@ -6,7 +6,7 @@ use App\Comment;
 use App\Group;
 use Illuminate\Http\Request;
 
-class CommentController extends Controller
+class CommentController extends WXMessageController
 {
     /**
      * Display a listing of the resource.
@@ -43,12 +43,26 @@ class CommentController extends Controller
 
         $user = $request->user();
         $user_id = $user->id;
+        $open_id = $user->open_id;
         $alias = $user->nickname;
         $avatar = $user->avatar;
         $group_id = $request->group_id;
         $commentInfo = $request->comment;
         $productommentInfo = $request->product_comment;
         $products = $request->products;
+        $form_id = $request->form_id;
+
+        $open_message = "";
+
+        if($form_id){
+            $group = Group::query()->find($group_id)->first();
+            $page = "/page/placard/show/show?id=";
+            if($group->type_id == 2){
+                $page = "/page/product/show/show?id=";
+            }
+            $page = $page.$group_id;
+            $open_message = $this->OrderSignUp($open_id,$form_id,$page,$group->description);
+        }
 
         $comment = Comment::where(['group_id'=>$group_id,'user_id'=>$user_id])->first();
 
@@ -62,7 +76,7 @@ class CommentController extends Controller
 
             $message = "更新成功";
 
-            return response()->json(compact('productommentInfo','products','comment','message'));
+            return response()->json(compact('open_message','productommentInfo','products','comment','message'));
         }
 
         $count = Comment::where('group_id',$group_id)->count();
@@ -152,4 +166,5 @@ class CommentController extends Controller
         return response()->json(['message'=>'ok']);
 
     }
+
 }

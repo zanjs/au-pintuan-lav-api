@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Group;
 use Curl\Curl;
 
-class CodeController extends Controller
+class CodeController extends WXController
 {
     public function getCode($id){
         $group = Group::query()->find($id);
@@ -28,21 +28,6 @@ class CodeController extends Controller
         return response($content, 200, [
             'Content-Type' => 'image/png',
         ]);
-    }
-
-    public function access_token(){
-        $curl = new Curl();
-
-        $appid = config('wxxcx.appid');
-        $secret = config('wxxcx.secret');
-
-        $url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=".$appid."&secret=".$secret;
-
-        $curl->get($url);
-
-        $curl->close();
-
-        return $curl->response->access_token;
     }
 
     public function qrcode($token, $path){

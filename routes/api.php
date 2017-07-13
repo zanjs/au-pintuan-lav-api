@@ -50,4 +50,7 @@ Route::post('/wx-info','WeUserController@getWxUserInfo');
 
 Route::get('/code/{id}','CodeController@getCode');
 
+Route::get('/time','TimeController@index');
+Route::get('/time/{name}','TimeController@show');
+
 Route::get('/baidu','CodeController@baidu');
