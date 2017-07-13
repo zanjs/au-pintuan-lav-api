@@ -17,7 +17,13 @@ class CodeController extends Controller
 
         $token = $this->access_token();
 
-        $content = $this->qrcode($token,"page/placard/show/show?id=".$id);
+        $path = "page/placard/show/show?id=";
+
+        if($group->type_id == 2){
+            $path = "page/product/show/show?id=";
+        }
+
+        $content = $this->qrcode($token,$path.$id);
 
         return response($content, 200, [
             'Content-Type' => 'image/png',
