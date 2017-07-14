@@ -53,6 +53,6 @@ Route::get('/code/{id}','CodeController@getCode');
 Route::get('/time','TimeController@index');
 Route::get('/time/{name}','TimeController@show');
 
-Route::get('/send','EmailController@send');
+Route::middleware('auth:api')->get('/email/send','EmailController@send');
 
 Route::get('/baidu','CodeController@baidu');

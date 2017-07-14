@@ -17,13 +17,27 @@ class EmailController extends Controller
         if (empty($request->email)) {
             return response()->json(['error'=> 'email']);
         }
+        if (empty($request->id)) {
+            return response()->json(['error'=> 'id']);
+        }
         $email = $request->email;
+        $id = $request->id;
 
-        $group = Group::query()->find(97);
+        $group = Group::query()->find($id);
 
-        $comments = Comment::query()->where('group_id',97)->orderBy('created_at','desc')->get();
+        if(!$group){
+            return response()->json(['error'=> 'not find']);
+        }
+
+        $comments = Comment::query()->where('group_id',$id)->orderBy('created_at','desc')->get();
+
+        if(count($comments) < 1){
+            return response()->json(['error'=> '还没有人报名']);
+        }
 
         $this->exportData($email,'团长大人.🤴.这是您要导出的接龙信息',$comments,$group);
+
+        return response()->json(['message'=> '发送成功']);
 
     }
 
