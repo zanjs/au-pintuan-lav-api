@@ -50,27 +50,33 @@ class CommentController extends WXMessageController
         $commentInfo = $request->comment;
         $productommentInfo = $request->product_comment;
         $products = $request->products;
+        $total_price = $request->total_price;
         $form_id = $request->form_id;
+        $name = $request->name;
+        $phone = $request->phone;
 
         $open_message = "";
 
         if($form_id){
-            $group = Group::query()->find($group_id)->first();
+            $group = Group::query()->find($group_id);
             $page = "/page/placard/show/show?id=";
             if($group->type_id == 2){
                 $page = "/page/product/show/show?id=";
             }
             $page = $page.$group_id;
-            $open_message = $this->OrderSignUp($open_id,$form_id,$page,$group->description);
+            $open_message = $this->OrderSignUp($open_id,$form_id,$page,$group->description,$productommentInfo,$commentInfo);
         }
 
         $comment = Comment::where(['group_id'=>$group_id,'user_id'=>$user_id])->first();
 
-//        dd($comment_has);
         if($comment){
 
             $comment->comment = $commentInfo;
             $comment->product_comment = $productommentInfo;
+            $comment->product_json = json_encode($products);
+            $comment->total_price = $total_price;
+            $comment->name = $name;
+            $comment->phone = $phone;
 
             $comment->save();
 
@@ -87,13 +93,17 @@ class CommentController extends WXMessageController
         $comment->group_id = $group_id;
         $comment->comment = $commentInfo;
         $comment->product_comment = $productommentInfo;
+        $comment->product_json = json_encode($products);
+        $comment->total_price = $total_price;
         $comment->user_id = $user_id;
         $comment->alias = $alias;
         $comment->avatar = $avatar;
+        $comment->name = $name;
+        $comment->phone = $phone;
 
         $comment->save();
 
-        $message = "发布成功";
+        $message = "报名成功啦";
 
         return response()->json(compact('products','comment','message'));
     }

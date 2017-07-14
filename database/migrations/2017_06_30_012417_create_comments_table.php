@@ -23,6 +23,8 @@ class CreateCommentsTable extends Migration
             $table->string('comment')->default(null)->comment('备注说明');
             $table->string('name')->nullable()->default(null)->comment('用户姓名');
             $table->string('product_comment')->default(null)->comment('产品说明');
+            $table->json('product_json')->nullable()->default(null)->comment('订单产品json 数据');
+            $table->decimal('total_price',12,2)->nullable()->default(0.00)->comment('订单总价值');
             $table->string('phone')->nullable()->default(null)->comment('联系电话');
             $table->string('address')->nullable()->default(null)->comment('联系地址');
             $table->string('location_address')->nullable()->default(null)->comment('定位地址');

@@ -35,8 +35,8 @@ class WXMessageController extends WXController
      * @param $form_id
      * @param $data
      */
-    public function OrderSignUp($open_id,$form_id,$page,$val){
-        $template_id = 'p1l2FQ52OnaxzeFdrpDv5fC6keU2ffjX2xSG9Lo1aZI';
+    public function OrderSignUp($open_id,$form_id,$page,$description,$product,$comment){
+        $template_id = 'p1l2FQ52OnaxzeFdrpDv5RA14awbLdSqahVu6OIN-w4';
 
         $data = array(
             'keyword1' => array(
@@ -44,7 +44,15 @@ class WXMessageController extends WXController
                 "color" => "#173177",
             ),
             'keyword2' => array(
-                'value' => $val,
+                'value' => $description,
+                "color" => "#173177",
+            ),
+            'keyword3' => array(
+                'value' => $product,
+                "color" => "#173177",
+            ),
+            'keyword4' => array(
+                'value' => $comment,
                 "color" => "#173177",
             ),
         );
