@@ -72,4 +72,16 @@
         @endforeach
     </repeater>
 </table>
+<table>
+    <tr>
+        <td>
+            团专属二维码
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <img src="https://au.anla.io/api/code/{{$group->id}}" alt="">
+        </td>
+    </tr>
+</table>
 </body>

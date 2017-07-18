@@ -120,6 +120,21 @@ class ImageController extends Controller
 
     }
 
+    public function delete(Request $request){
+//        $uuId = $request->id;
+        $img = $request->img;
+
+        $user = $request->user();
+//
+//        if($user->id != $uuId){
+//            return response()->json(['error'=>'no']);
+//        }
+        $image_file = 'uploads/group/'.$user->id.'/'.$img;
+        $isdel = Storage::disk('uploads')->delete($image_file);
+
+        return response()->json(['data'=>$img,'file'=>$image_file,'message' => $isdel]);
+    }
+
     /**
      * 上传文件
      */

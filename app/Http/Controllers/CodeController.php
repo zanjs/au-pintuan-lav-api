@@ -36,7 +36,7 @@ class CodeController extends WXController
 
         $data = array(
             'path' => $path,
-            "width" => 420,
+            "width" => 320,
         );
 
         $curl->setHeader('Content-Type', 'application/json');

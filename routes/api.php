@@ -43,6 +43,8 @@ Route::middleware('auth:api')->post('/image/upload', 'ImageController@uploadImag
 Route::get('/image/del/{id}', 'ImageController@del');
 Route::middleware('auth:api')->post('/image/del/{id}', 'ImageController@destroy');
 
+Route::middleware('auth:api')->post('/image/delete', 'ImageController@delete');
+
 Route::post('/wx/login','WeUserController@login');
 Route::post('/wx/login/test','WeUserController@getWxUserInfo');
 Route::post('/wx-info','WeUserController@getWxUserInfo');
@@ -56,3 +58,11 @@ Route::get('/time/{name}','TimeController@show');
 Route::middleware('auth:api')->get('/email/send','EmailController@send');
 
 Route::get('/baidu','CodeController@baidu');
+
+
+Route::get('/baidu','CodeController@baidu');
+
+Route::group(['namespace' => 'Demo','prefix' => 'demo'], function () {
+//    Route::get('/code/{id}','CodeController@getCode');
+    Route::get('/code_t','CodeController@codeT');
+});
