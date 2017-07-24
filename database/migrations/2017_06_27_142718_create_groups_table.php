@@ -15,6 +15,7 @@ class CreateGroupsTable extends Migration
     {
         Schema::create('groups', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('title')->nullable()->comment('拼团标题');
             $table->text('description')->notNull()->comment('拼团描述');
             $table->integer('type_id')->notNull()->comment('拼团类型');
             $table->string('head_id',50)->notNull()->comment('团长ID');

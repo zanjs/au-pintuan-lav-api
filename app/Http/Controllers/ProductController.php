@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\ProductOrder;
 use Illuminate\Http\Request;
 use App\Product;
 
@@ -44,11 +45,14 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
-        $products = Product::query()->where('group_id',$id)->get();
+        $user = $request->user();
+        $products = Product::query()->where('group_id',$id)->with('productOrder')->get();
 
-        return response()->json(compact('products'));
+        $my_orders = ProductOrder::query()->where(['group_id'=> $id,'user_id'=>$user->id])->get();
+
+        return response()->json(compact('products','my_orders'));
     }
 
     /**

@@ -41,6 +41,7 @@ class GroupController extends Controller
      */
     public function store(Request $request)
     {
+        $title = request('title', '');
         $description = request('description', '');
         $type_id = request('type_id', 1);
         $image = request('image', '');
@@ -49,11 +50,10 @@ class GroupController extends Controller
         $alias = $user->nickname;
         $avatar = $user->avatar;
 
-
-
        $products = $request->products;
 
         $group = Group::create([
+            'title' => $title,
             'type_id' => $type_id,
             'description' => $description,
             'head_id' => $head_id,
@@ -123,7 +123,7 @@ class GroupController extends Controller
             return response()->json(['error','no']);
         }
 
-        $user = $request->user();
+//        $user = $request->user();
 
         $open = $request->open;
 
@@ -151,6 +151,7 @@ class GroupController extends Controller
         }
 
         $group->description = request('description', '');
+        $group->title = request('title', '');
         $group->type_id = request('type_id', 1);
         $group->image = request('image', '');
         $user = $request->user();

@@ -29,7 +29,7 @@ class EmailController extends Controller
             return response()->json(['error'=> 'not find']);
         }
 
-        $comments = Comment::query()->where('group_id',$id)->orderBy('created_at','desc')->get();
+        $comments = Comment::query()->where('group_id',$id)->get();
 
         if(count($comments) < 1){
             return response()->json(['error'=> '还没有人报名']);

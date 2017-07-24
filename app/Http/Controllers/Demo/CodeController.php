@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Demo;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 use App\Http\Controllers\WXController;
 
@@ -30,16 +31,24 @@ class CodeController extends WXController
 
         $content = $this->qrcode($token,$path.$id);
 
-        $QRCodeReader = new QRCodeReader();
-        $qrcode_text = $QRCodeReader->decode(base64_encode($content));
+//        $QRCodeReader = new QRCodeReader();
+//        $qrcode_text = $QRCodeReader->decode(base64_encode($content));
 
-        var_dump($qrcode_text);
+//        var_dump($qrcode_text);
+//        $code_name = 'public/wx-code/group/'.$id.'.png';
+        $code_path_prefix = 'public/';
+        $code_path = 'wx-code/group/'.$id.'/'.$id.'.png';
+        $code_name = $code_path_prefix.$code_path;
+        $req_file = Storage::put($code_name, $content);
 
-        $gd = imagecreatefromstring($content);
+        $group->qr_code_path = $code_path;
 
+        $group->save();
 
+        dd($req_file);
+//        $gd = imagecreatefromstring($content);
 
-        imagepng($gd, '/home/wwwroot/au.anla.io/xxx.png');
+//        imagepng($gd, '/home/wwwroot/au.anla.io/xxx.png');
 
 
 
@@ -58,7 +67,9 @@ class CodeController extends WXController
 
     public function qrcode($token, $path){
         $curl = new Curl();
-        $url = "https://api.weixin.qq.com/cgi-bin/wxaapp/createwxaqrcode?access_token=".$token;
+//        $url = "https://api.weixin.qq.com/cgi-bin/wxaapp/createwxaqrcode?access_token=".$token;
+
+        $url = "https://api.weixin.qq.com/wxa/getwxacode?access_token=".$token;
 
         $data = array(
             'path' => $path,

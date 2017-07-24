@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use App\Comment;
 use App\Group;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CommentController extends WXMessageController
 {
+    protected $orderTable = 'product_orders';
     /**
      * Display a listing of the resource.
      *
@@ -59,9 +61,9 @@ class CommentController extends WXMessageController
 
         if($form_id){
             $group = Group::query()->find($group_id);
-            $page = "/page/placard/show/show?id=";
+            $page = "page/placard/show/show?id=";
             if($group->type_id == 2){
-                $page = "/page/product/show/show?id=";
+                $page = "page/product/show/show?id=";
             }
             $page = $page.$group_id;
             $open_message = $this->OrderSignUp($open_id,$form_id,$page,$group->description,$productommentInfo,$commentInfo);
@@ -79,6 +81,8 @@ class CommentController extends WXMessageController
             $comment->phone = $phone;
 
             $comment->save();
+
+            $this->orderInsert($products,$group_id,$user_id);
 
             $message = "更新成功";
 
@@ -103,9 +107,35 @@ class CommentController extends WXMessageController
 
         $comment->save();
 
+        if(!$products){
+            return response()->json(compact('description','type_id','user','group'));
+        }
+
+        $this->orderInsert($products,$group_id,$user_id);
         $message = "报名成功啦";
 
-        return response()->json(compact('products','comment','message'));
+        return response()->json(compact('insert','products','comment','message'));
+    }
+
+    public  function orderInsert($products,$group_id,$user_id){
+        if(!$products){
+            return false;
+        }
+
+        DB::table($this->orderTable)->where(['group_id'=>$group_id,'user_id'=>$user_id])->delete();
+
+        //        插入订单
+        $arr = array();
+
+        foreach ($products as $product) {
+            $product["group_id"] = $group_id;
+            $product["user_id"] = $user_id;
+            $product["created_at"] = date("Y-m-d H:i:s");
+            array_push($arr,$product);
+        }
+
+        $insert = DB::table($this->orderTable)->insert($arr);
+        return $insert;
     }
 
     /**
