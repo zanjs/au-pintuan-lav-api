@@ -21,6 +21,10 @@ class CreateWeUsersTable extends Migration
             $table->string('open_id')->unique();
             $table->string('nickname');
             $table->string('avatar');
+            $table->string('u_name',50)->nullable()->default(null)->comment('跟团名字');
+            $table->string('u_phone',50)->nullable()->default(null)->comment('跟团电话');
+            $table->string('u_wechat',50)->nullable()->default(null)->comment('跟团微信');
+            $table->string('u_address',250)->nullable()->default(null)->comment('跟团地址');
             $table->rememberToken();
             $table->timestamps();
         });
