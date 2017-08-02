@@ -15,7 +15,11 @@ class Group extends Model
         'currency_id',
         'head_id',
         'image',
-        'alias'
+        'alias',
+        'required_u_name',
+        'required_u_phone',
+        'required_u_wechat',
+        'required_u_address',
     ];
 
 

@@ -45,6 +45,10 @@ class GroupController extends Controller
         $description = request('description', '');
         $type_id = request('type_id', 1);
         $image = request('image', '');
+        $required_u_name = request('required_u_name', 0);
+        $required_u_phone = request('required_u_phone', 0);
+        $required_u_wechat = request('required_u_wechat', 0);
+        $required_u_address = request('required_u_address', 0);
         $user = $request->user();
         $head_id = $user->id;
         $alias = $user->nickname;
@@ -59,7 +63,11 @@ class GroupController extends Controller
             'head_id' => $head_id,
             'alias' => $alias,
             'avatar' => $avatar,
-            'image' => $image
+            'image' => $image,
+            'required_u_name' => $required_u_name,
+            'required_u_phone' => $required_u_phone,
+            'required_u_wechat' => $required_u_wechat,
+            'required_u_address' => $required_u_address,
         ]);
 
        if(!$products){
@@ -154,6 +162,10 @@ class GroupController extends Controller
         $group->title = request('title', '');
         $group->type_id = request('type_id', 1);
         $group->image = request('image', '');
+        $group->required_u_name = request('required_u_name', 0);
+        $group->required_u_phone = request('required_u_phone', 0);
+        $group->required_u_wechat = request('required_u_wechat', 0);
+        $group->required_u_address = request('required_u_address', 0);
         $user = $request->user();
         $group->head_id = $user->id;
         $group->alias = $user->nickname;
