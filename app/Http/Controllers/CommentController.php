@@ -6,6 +6,7 @@ use App\Comment;
 use App\Group;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\WeUser;
 
 class CommentController extends WXMessageController
 {
@@ -56,6 +57,30 @@ class CommentController extends WXMessageController
         $form_id = $request->form_id;
         $name = $request->name;
         $phone = $request->phone;
+
+        $u_name = $request->u_name;
+        $u_phone = $request->u_phone;
+        $u_wechat = $request->u_wechat;
+        $u_address = $request->u_address;
+
+        $wx_user = WeUser::query()->find($user->id);
+
+        if($u_name){
+            $wx_user->u_name = $u_name;
+        }
+        if($u_phone){
+            $wx_user->u_phone = $u_phone;
+        }
+        if($u_wechat){
+            $wx_user->u_wechat = $u_wechat;
+        }
+        if($u_address){
+            $wx_user->u_address = $u_address;
+        }
+
+        if($u_name || $u_phone || $u_wechat || $u_address){
+            $wx_user->save();
+        }
 
         $open_message = "";
 
