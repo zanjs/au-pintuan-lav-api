@@ -77,6 +77,13 @@ class WeUserController extends Controller
                 'avatar' => $jsonWxUserInfo->avatarUrl,
             ]);
         }
+
+//        if(!$hasUser->union_id) {
+//            $hasUser->union_id = $jsonWxUserInfo->unionId;
+//            $hasUser->save();
+//        }
+
+
         $credentials=[
             'email' => $email,
             'password'  => $password,
@@ -88,6 +95,6 @@ class WeUserController extends Controller
         } catch (JWTException $e) {
             return response()->json(['error' => 'could_not_create_token'], 500);
         }
-        return response()->json(compact('token'));
+        return response()->json(compact('token','hasUser','jsonWxUserInfo'));
     }
 }

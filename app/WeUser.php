@@ -14,7 +14,7 @@ class WeUser extends Authenticatable implements AuthenticatableUserContract
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password','open_id', 'nickname','avatar',
+        'name', 'email', 'password','open_id','union_id', 'nickname','avatar',
     ];
     /**
      * The attributes that should be hidden for arrays.

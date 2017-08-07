@@ -19,6 +19,7 @@ class CreateWeUsersTable extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->string('open_id')->unique();
+            $table->string('union_id');
             $table->string('nickname');
             $table->string('avatar');
             $table->string('u_name',50)->nullable()->default(null)->comment('跟团名字');
