@@ -67,19 +67,29 @@ class WeUserController extends Controller
         $password = $jsonWxUserInfo->openId.$passwordFix;
 
         $hasUser = WeUser::Where('email', $email)->first();
+//        $uniodID = $jsonWxUserInfo->unionId;
+//        $hasUser2 = WeUser::Where('email', $jsonWxUserInfo->unionId.$emailFix)->first();
+//
+//        if($hasUser2){
+//            $hasUser = $hasUser2;
+//        }
+
+
         if(!$hasUser){
             WeUser::create([
                 'name' => $jsonWxUserInfo->nickName,
-                'email' => $email,
+                'email' => $jsonWxUserInfo->openId.$emailFix,
                 'password' => bcrypt($password),
                 'open_id' => $jsonWxUserInfo->openId,
                 'nickname' => $jsonWxUserInfo->nickName,
                 'avatar' => $jsonWxUserInfo->avatarUrl,
+                'union_id' => $jsonWxUserInfo->unionId,
             ]);
         }
 
 //        if(!$hasUser->union_id) {
 //            $hasUser->union_id = $jsonWxUserInfo->unionId;
+//            $email = $jsonWxUserInfo->union_id.$emailFix;
 //            $hasUser->save();
 //        }
 
