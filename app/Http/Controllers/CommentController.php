@@ -102,8 +102,10 @@ class CommentController extends WXMessageController
             $comment->product_comment = $productommentInfo;
             $comment->product_json = json_encode($products);
             $comment->total_price = $total_price;
-            $comment->name = $name;
-            $comment->phone = $phone;
+            $comment->name = $u_name;
+            $comment->phone = $u_phone;
+            $comment->wechat = $u_wechat;
+            $comment->address = $u_address;
 
             $comment->save();
 
@@ -127,8 +129,10 @@ class CommentController extends WXMessageController
         $comment->user_id = $user_id;
         $comment->alias = $alias;
         $comment->avatar = $avatar;
-        $comment->name = $name;
-        $comment->phone = $phone;
+        $comment->name = $u_name;
+        $comment->phone = $u_phone;
+        $comment->wechat = $u_wechat;
+        $comment->address = $u_address;
 
         $comment->save();
 

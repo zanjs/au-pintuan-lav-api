@@ -36,8 +36,10 @@
     <tr>
         <td bgcolor="#FFCC00">索引</td>
         <td bgcolor="#FFCC00">微信花名</td>
+        <td bgcolor="#FFCC00">微信号</td>
         <td bgcolor="#FFCC00">姓名</td>
         <td bgcolor="#FFCC00">电话</td>
+        <td bgcolor="#FFCC00">地址</td>
         <td bgcolor="#FFCC00" style="max-width: 100px;">备注</td>
         <td bgcolor="#FFCC00">订单信息</td>
         <td bgcolor="#FFCC00">总价</td>
@@ -53,10 +55,16 @@
                     <multiline label="Heading 1 text">{{ $comment->alias }}</multiline>
                 </td>
                 <td>
+                    <multiline label="Heading 1 text">{{ $comment->wechat }}</multiline>
+                </td>
+                <td>
                     <multiline label="Heading 1 text">{{ $comment->name }}</multiline>
                 </td>
                 <td>
                     <multiline label="Heading 1 text">{{ $comment->phone }}</multiline>
+                </td>
+                <td style="max-width: 100px;">
+                    <multiline label="Heading 2 text">{{ $comment->address }}</multiline>
                 </td>
                 <td style="max-width: 100px;">
                     <multiline label="Heading 2 text">{{ $comment->comment }}</multiline>
